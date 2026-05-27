@@ -1,0 +1,40 @@
+name: CI - 114062536
+
+on:
+  push: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript typecheck
+        run: npm run typecheck
+
+      - name: Prettier format check
+        run: npm run format:check
+
+      - name: Run tests
+        run: npm test
+
+      - name: Upload JUnit report
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: junit-report
+          path: test-results/junit.xml
+
+      - name: Upload test report (Tests tab)
+        if: always()
+        uses: actions/upload-test-report@v1
+        with:
+          path: test-results/junit.xml

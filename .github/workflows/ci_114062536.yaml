@@ -3,6 +3,10 @@ name: CI - 114062536
 on:
   push: {}
 
+permissions:
+  checks: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest

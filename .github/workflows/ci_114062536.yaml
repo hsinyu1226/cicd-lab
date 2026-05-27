@@ -37,10 +37,9 @@ jobs:
           name: junit-report
           path: test-results/junit.xml
 
-      - name: Publish test report to Tests tab
+      - name: Publish test results
         if: always()
-        uses: dorny/test-reporter@v1
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          name: vitest
-          path: test-results/junit.xml
-          reporter: java-junit
+          files: test-results/junit.xml
+          check_name: vitest Results

@@ -36,11 +36,3 @@ jobs:
         with:
           name: junit-report
           path: test-results/junit.xml
-
-      - name: Publish test report to Tests tab
-        if: always()
-        uses: dorny/test-reporter@v1
-        with:
-          name: vitest
-          path: test-results/junit.xml
-          reporter: java-junit
